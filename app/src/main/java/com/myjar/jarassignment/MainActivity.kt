@@ -40,7 +40,7 @@ class MainActivity : ComponentActivity() {
         }
 
         lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.navigateToItem.filterNotNull().collectLatest {
                     val intent = Intent(this@MainActivity, DetailActivity::class.java)
                     intent.putExtra("itemId", it)
@@ -55,7 +55,7 @@ class MainActivity : ComponentActivity() {
         adapter = ItemAdapter { selectedItem ->
             viewModel.navigateToItemDetail(selectedItem.id)
         }
-
+        recyclerView.adapter=adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
     }
 
